@@ -231,7 +231,8 @@ struct Prop {
     // Working assumption is that we can safely equate "Prop" with "instance
     // of a mechanism" apart from a few special cases like CABLESECTION
     Prop(Node* node, short type)
-        : node(node), _type{type} {
+        : node(node)
+        , _type{type} {
         if (type != CABLESECTION) {
             m_mech_handle = neuron::container::Mechanism::owning_handle{
                 neuron::model().mechanism_data(type)};
