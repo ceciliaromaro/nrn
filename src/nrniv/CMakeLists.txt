@@ -492,7 +492,7 @@ endif()
 
 if(NRN_ENABLE_INTERVIEWS)
   include_directories(${IV_INCLUDE_DIR})
-  target_link_libraries(nrniv_lib PUBLIC interviews)
+  target_link_libraries(nrniv_lib PRIVATE interviews)
 else()
   target_include_directories(nrniv_lib PUBLIC $<BUILD_INTERFACE:${NRN_IVOS_SRC_DIR}>)
 endif()
