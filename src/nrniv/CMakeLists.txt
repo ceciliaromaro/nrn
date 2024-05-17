@@ -407,7 +407,7 @@ target_include_directories(
   nrniv_lib SYSTEM PUBLIC $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/${NRN_3RDPARTY_DIR}/eigen>)
 cpp_cc_configure_sanitizers(TARGET nrniv_lib)
 # Source-directory .cpp needs to find generated .hpp.
-target_include_directories(nrniv_lib PRIVATE "${NRN_OC_GEN}")
+target_include_directories(nrniv_lib PUBLIC $<BUILD_INTERFACE:${NRN_OC_GEN}>)
 target_include_directories(nrniv_lib INTERFACE $<INSTALL_INTERFACE:include>)
 if(NRN_ENABLE_PYTHON AND NOT NRN_ENABLE_PYTHON_DYNAMIC)
   target_link_libraries(nrniv_lib PRIVATE nrnpython)
