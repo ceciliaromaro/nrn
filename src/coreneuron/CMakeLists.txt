@@ -488,7 +488,10 @@ if(CORENRN_ENABLE_GPU)
   add_library(coreneuron-cuda ${COMPILE_LIBRARY_TYPE} ${CORENEURON_CUDA_FILES})
   set_target_properties(coreneuron-cuda PROPERTIES EXPORT_NAME corenrn-cuda)
   target_link_libraries(coreneuron-core PUBLIC coreneuron-cuda)
-  list(APPEND CORENRN_INSTALL_TARGETS coreneuron-cuda)
+  # list() commands don't propagate to parent scope
+  set(CORENRN_INSTALL_TARGETS
+      "coreneuron-core;coreneuron-cuda"
+      PARENT_SCOPE)
 endif()
 
 foreach(target coreneuron-core ${coreneuron_cuda_target})
