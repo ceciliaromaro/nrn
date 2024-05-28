@@ -673,6 +673,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/utils/profile/profiler_interface.h
 # CORENRN_LIB_LINK_FLAGS, which contains the arguments that must be added to the link line for
 # `special` to link against `libcorenrnmech_internal.{a,so}`
 include(MakefileBuildOptions)
+set(CORENRN_CXX_FLAGS "${CORENRN_CXX_FLAGS}" PARENT_SCOPE)
 
 # =============================================================================
 # CoreNEURON related configuration
