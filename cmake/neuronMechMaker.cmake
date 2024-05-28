@@ -34,9 +34,10 @@ function(create_nrnmech)
     list(APPEND L_MECH_PRINT "fprintf(stderr, \" \\\"${MOD_SHORT}\\\"\")\;")
     list(APPEND L_MECH_REGISTRE "_${MOD_STUB}_reg()\;")
 
-    add_custom_command(COMMAND "${NOCMODL}" -o "${CMAKE_CURRENT_BINARY_DIR}/cpp"
-                               "${MOD_FILE}" OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${CPP_FILE}"
-                               DEPENDS "${NOCMODL}")
+    add_custom_command(
+      COMMAND "${NOCMODL}" -o "${CMAKE_CURRENT_BINARY_DIR}/cpp" "${MOD_FILE}"
+      OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${CPP_FILE}"
+      DEPENDS "${NOCMODL}")
 
     list(APPEND L_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/${CPP_FILE}")
   endforeach()
@@ -64,17 +65,19 @@ function(create_nrnmech)
       list(APPEND L_CORE_MECH_PRINT "fprintf(stderr, \" \\\"${MOD_SHORT}\\\"\")\;")
       list(APPEND L_CORE_MECH_REGISTRE "_${MOD_STUB}_reg()\;")
 
-      add_custom_command(COMMAND "${NMODL}" -o "${CMAKE_CURRENT_BINARY_DIR}/cpp_core"
-                                 "${MOD_FILE}" OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${CPP_FILE}"
-                                 DEPENDS "${NMODL}")
+      add_custom_command(
+        COMMAND "${NMODL}" -o "${CMAKE_CURRENT_BINARY_DIR}/cpp_core" "${MOD_FILE}"
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${CPP_FILE}"
+        DEPENDS "${NMODL}")
 
-       list(APPEND L_CORE_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/${CPP_FILE}")
+      list(APPEND L_CORE_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/${CPP_FILE}")
     endforeach()
   endif()
 
   add_library(${LIBNAME} SHARED ${L_SOURCES})
   target_link_libraries(${LIBNAME} PUBLIC neuron::nrniv)
-  # set_target_properties(${LIBNAME} PROPERTIES OUTPUT_NAME "${LIBNAME}$<$<BOOL:${NRN_MECH_MECHANISM_NAME}>:_${NRN_MECH_MECHANISM_NAME}>")
+  # set_target_properties(${LIBNAME} PROPERTIES OUTPUT_NAME
+  # "${LIBNAME}$<$<BOOL:${NRN_MECH_MECHANISM_NAME}>:_${NRN_MECH_MECHANISM_NAME}>")
   install(TARGETS ${LIBNAME} DESTINATION lib)
 
   if(NRN_MECH_CORENEURON)
@@ -82,7 +85,8 @@ function(create_nrnmech)
     target_include_directories(core${LIBNAME} PRIVATE ${_CORENEURON_RANDOM_INCLUDE})
     target_compile_options(core${LIBNAME} PRIVATE ${_CORENEURON_FLAGS})
     target_link_libraries(core${LIBNAME} PUBLIC neuron::corenrn)
-    # set_target_properties(${LIBNAME} PROPERTIES OUTPUT_NAME "${LIBNAME}$<$<BOOL:${NRN_MECH_MECHANISM_NAME}>:_${NRN_MECH_MECHANISM_NAME}>")
+    # set_target_properties(${LIBNAME} PROPERTIES OUTPUT_NAME
+    # "${LIBNAME}$<$<BOOL:${NRN_MECH_MECHANISM_NAME}>:_${NRN_MECH_MECHANISM_NAME}>")
     install(TARGETS core${LIBNAME} DESTINATION lib)
   endif()
 
