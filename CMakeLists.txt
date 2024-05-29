@@ -491,8 +491,8 @@ endif()
 # initialize CLI11 submodule
 cpp_cc_git_submodule(CLI11 BUILD PACKAGE CLI11 REQUIRED)
 
-# coreneuron targets will get appended here
-set(NRN_INSTALL_TARGETS nrniv_lib)
+# coreneuron targets will get propagated down from the subdirectory
+set(NRN_INSTALL_TARGETS nrniv_lib nocmodl)
 
 # =============================================================================
 # Enable CoreNEURON support

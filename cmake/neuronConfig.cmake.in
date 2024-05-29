@@ -20,7 +20,6 @@ set(_CORENEURON_MECH_ENG "${_prefix}/share/coreneuron/enginemech.cpp")
 set(_CORENEURON_RANDOM_INCLUDE "${_prefix}/include/coreneuron/utils/randoms")
 set(_CORENEURON_FLAGS @CORENRN_CXX_FLAGS@)
 
-find_program(NOCMODL nocmodl REQUIRED)
 find_program(NMODL nmodl REQUIRED)
 
 include(${CMAKE_CURRENT_LIST_DIR}/neuronMechMaker.cmake)

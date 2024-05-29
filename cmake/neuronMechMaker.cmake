@@ -25,7 +25,6 @@ function(create_nrnmech)
   endforeach()
 
   foreach(MOD_FILE IN LISTS MOD_FILES)
-    # set(MOD_FILE common/mod/DetAMPANMDA.mod)
     get_filename_component(MOD_STUB "${MOD_FILE}" NAME_WLE)
     set(CPP_FILE "cpp/${MOD_STUB}.cpp")
     file(RELATIVE_PATH MOD_SHORT "${CMAKE_SOURCE_DIR}" "${MOD_FILE}")
@@ -35,9 +34,9 @@ function(create_nrnmech)
     list(APPEND L_MECH_REGISTRE "_${MOD_STUB}_reg()\;")
 
     add_custom_command(
-      COMMAND "${NOCMODL}" -o "${CMAKE_CURRENT_BINARY_DIR}/cpp" "${MOD_FILE}"
+      COMMAND neuron::nocmodl -o "${CMAKE_CURRENT_BINARY_DIR}/cpp" "${MOD_FILE}"
       OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${CPP_FILE}"
-      DEPENDS "${NOCMODL}")
+      DEPENDS neuron::nocmodl)
 
     list(APPEND L_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/${CPP_FILE}")
   endforeach()
@@ -56,7 +55,6 @@ function(create_nrnmech)
     endforeach()
 
     foreach(MOD_FILE IN LISTS MOD_FILES)
-      # set(MOD_FILE common/mod/DetAMPANMDA.mod)
       get_filename_component(MOD_STUB "${MOD_FILE}" NAME_WLE)
       set(CPP_FILE "cpp_core/${MOD_STUB}.cpp")
       file(RELATIVE_PATH MOD_SHORT "${CMAKE_SOURCE_DIR}" "${MOD_FILE}")
